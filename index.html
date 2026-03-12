@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Juliana · Operação Páscoa 2026</title>
+  <!-- Fontes e ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b141a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Container ocupando toda a tela do celular */
+    .phone-frame {
+      width: 100%;
+      max-width: 100%;
+      height: 100vh;
+      height: 100dvh; /* Para navegadores modernos */
+      background: #111b21;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dynamic Island mais compacta */
+    .dynamic-island {
+      background: #1f2c33;
+      color: white;
+      padding: 8px 16px 4px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: 1px solid #2a3942;
+      flex-shrink: 0;
+    }
+
+    /* Cabeçalho do chat mais compacto */
+    .chat-header {
+      background: #1f2c33;
+      color: white;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #2a3942;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      background: #c28a5c;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #3e2b18;
+      border: 2px solid #25d366;
+    }
+
+    .contato-info {
+      flex: 1;
+    }
+
+    .contato-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e9edef;
+    }
+
+    .contato-info p {
+      font-size: 12px;
+      color: #8696a0;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 18px;
+      font-size: 18px;
+      color: #aebac1;
+    }
+
+    /* Área de mensagens - flexível e scrollável */
+    .chat-area {
+      flex: 1;
+      background: #0b141a;
+      background-image: radial-gradient(rgba(42, 57, 66, 0.3) 1px, transparent 1px);
+      background-size: 30px 30px;
+      padding: 16px 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Bolhas de mensagem mais compactas */
+    .message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.4;
+      position: relative;
+      animation: popIn 0.2s ease;
+      word-wrap: break-word;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95) translateY(5px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .message.received {
+      background: #1f2c33;
+      color: #e9edef;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message.sent {
+      background: #005c4b;
+      color: #e9edef;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message-time {
+      font-size: 10px;
+      color: #8696a0;
+      margin-top: 4px;
+      text-align: right;
+    }
+
+    /* Indicador de digitando compacto */
+    .typing-indicator {
+      background: #1f2c33;
+      color: #e9edef;
+      align-self: flex-start;
+      border-radius: 20px;
+      border-bottom-left-radius: 4px;
+      padding: 10px 16px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: #8696a0;
+      border-radius: 50%;
+      display: inline-block;
+      animation: typingBounce 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* Botão link mais compacto */
+    .link-message {
+      background: #025c4b;
+      border-radius: 24px;
+      padding: 14px 18px;
+      margin: 6px 0;
+      border: 2px solid #f1c40f;
+      box-shadow: 0 5px 0 #0d332b, 0 8px 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: 0.1s;
+      max-width: 100%;
+    }
+
+    .link-message:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #0d332b, 0 8px 15px rgba(0,0,0,0.5);
+    }
+
+    .link-message a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Botão de reiniciar flutuante */
+    .restart-btn {
+      position: absolute;
+      bottom: 80px;
+      right: 16px;
+      background: #25d366;
+      color: #111b21;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      border: 2px solid white;
+      z-index: 10;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .restart-btn:active {
+      transform: scale(0.9);
+    }
+
+    /* Área de input mais compacta */
+    .input-area {
+      background: #1f2c33;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid #2a3942;
+      flex-shrink: 0;
+    }
+
+    .input-area i {
+      color: #8696a0;
+      font-size: 22px;
+    }
+
+    .input-area input {
+      flex: 1;
+      background: #2a3942;
+      border: none;
+      border-radius: 24px;
+      padding: 10px 14px;
+      color: #e9edef;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .input-area input::placeholder {
+      color: #8696a0;
+      font-size: 14px;
+    }
+
+    .input-area .send-btn {
+      color: #00a884;
+      cursor: pointer;
+    }
+
+    /* Destaques */
+    .highlight {
+      background: #975a2b;
+      padding: 2px 6px;
+      border-radius: 16px;
+      font-weight: 600;
+      color: #ffe5b4;
+      font-size: 13px;
+    }
+
+    .urgent {
+      background: #aa2e2e;
+      padding: 2px 6px;
+      border-radius: 16px;
+      font-weight: 700;
+      color: #ffd6d6;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-frame">
+    <!-- Dynamic Island -->
+    <div class="dynamic-island">
+      <span>📶 5G</span>
+      <span>14:32</span>
+      <span>🔋 98%</span>
+    </div>
+
+    <!-- Cabeçalho com Juliana -->
+    <div class="chat-header">
+      <div class="avatar">
+        <i class="fas fa-heart"></i>
+      </div>
+      <div class="contato-info">
+        <h3>Juliana 🤍</h3>
+        <p>🟢 online · Especialista Páscoa</p>
+      </div>
+      <div class="header-icons">
+        <i class="fas fa-phone"></i>
+        <i class="fas fa-video"></i>
+        <i class="fas fa-ellipsis-vertical"></i>
+      </div>
+    </div>
+
+    <!-- Área de mensagens -->
+    <div class="chat-area" id="chatArea">
+      <!-- Mensagens serão inseridas via js -->
+    </div>
+
+    <!-- Botão flutuante para reiniciar conversa -->
+    <div class="restart-btn" id="restartBtn" title="Reiniciar conversa">
+      <i class="fas fa-undo-alt"></i>
+    </div>
+
+    <!-- Área de input funcional -->
+    <div class="input-area">
+      <i class="far fa-smile"></i>
+      <input type="text" id="messageInput" placeholder="Digite sua mensagem" autocomplete="off">
+      <i class="fas fa-paperclip"></i>
+      <i class="fas fa-microphone"></i>
+      <i class="fas fa-paper-plane send-btn" id="sendButton"></i>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const chatArea = document.getElementById('chatArea');
+      const inputField = document.getElementById('messageInput');
+      const sendButton = document.getElementById('sendButton');
+      const restartBtn = document.getElementById('restartBtn');
+
+      // Variáveis de estado da conversa
+      let passo = 0;
+      let aguardandoResposta = true;
+      let nomeUsuario = '';
+      let meta = '';
+
+      // Elemento de digitando
+      let typingElement = null;
+
+      // Função para limpar o chat
+      function clearChat() {
+        chatArea.innerHTML = '';
+      }
+
+      // Função para reiniciar completamente a conversa
+      function restartConversation() {
+        clearChat();
+        
+        // Resetar variáveis
+        passo = 0;
+        aguardandoResposta = true;
+        nomeUsuario = '';
+        meta = '';
+        
+        // Esconder qualquer typing ativo
+        hideTyping();
+        
+        // Iniciar nova conversa
+        setTimeout(() => {
+          addMessage('🐣 Oi! Eu sou a Juliana, tudo bem? Antes de começarmos, me conta: qual é o seu nome?', 'received');
+          aguardandoResposta = true;
+          passo = 0;
+        }, 300);
+      }
+
+      function addMessage(texto, tipo, isHtml = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${tipo}`;
+        
+        if (isHtml) {
+          messageDiv.innerHTML = texto;
+        } else {
+          messageDiv.textContent = texto;
+        }
+        
+        const timeSpan = document.createElement('div');
+        timeSpan.className = 'message-time';
+        const agora = new Date();
+        timeSpan.textContent = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        messageDiv.appendChild(timeSpan);
+        
+        chatArea.appendChild(messageDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      function showTyping() {
+        if (typingElement) return;
+        typingElement = document.createElement('div');
+        typingElement.className = 'typing-indicator';
+        typingElement.innerHTML = '<span></span><span></span><span></span>';
+        chatArea.appendChild(typingElement);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      function hideTyping() {
+        if (typingElement) {
+          typingElement.remove();
+          typingElement = null;
+        }
+      }
+
+      function sendAttendantMessage(texto, delay = 1600, isHtml = false) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage(texto, 'received', isHtml);
+          aguardandoResposta = true;
+        }, delay);
+      }
+
+      // Função principal que processa as respostas do usuário
+      function processUserResponse(userText) {
+        const texto = userText.trim();
+        if (texto === '' || !aguardandoResposta) return;
+
+        // Comando para reiniciar a qualquer momento
+        if (texto.toLowerCase() === 'começar' || texto.toLowerCase() === 'reiniciar' || texto.toLowerCase() === 'menu') {
+          addMessage(texto, 'sent');
+          aguardandoResposta = false;
+          sendAttendantMessage('Claro! Vamos recomeçar do início. 🐣', 1000);
+          setTimeout(() => {
+            restartConversation();
+          }, 1500);
+          return;
+        }
+
+        addMessage(texto, 'sent');
+        aguardandoResposta = false;
+
+        // PASSO 0: Primeira interação - recebe o nome
+        if (passo === 0) {
+          nomeUsuario = texto.split(' ')[0] || 'amiga';
+          
+          sendAttendantMessage(`Que bom falar com você, ${nomeUsuario}! 🌷 Eu sou a Juliana e minha missão é ajudar mulheres como você a transformarem a Páscoa em uma fonte de renda, mesmo sem experiência.`, 1800);
+          
+          setTimeout(() => {
+            sendAttendantMessage('Posso te fazer uma pergunta um pouco mais pessoal? (pode responder com sinceridade)', 1600);
+            passo = 1;
+          }, 2200);
+        }
+        
+        // PASSO 1: Pergunta sobre renda extra
+        else if (passo === 1) {
+          if (texto.toLowerCase().includes('sim') || texto.toLowerCase().includes('pode') || texto.toLowerCase().includes('claro')) {
+            sendAttendantMessage('Conta pra mim: o que você faria com uma renda extra de R$ 2.000 a R$ 5.000 nessa Páscoa?', 1600);
+            passo = 2;
+          } else {
+            sendAttendantMessage('Sem problemas! É que eu percebi que você está aqui porque quer ganhar dinheiro, certo? Me conta: qual seu maior sonho com uma renda extra?', 1600);
+            passo = 2;
+          }
+        }
+
+        // PASSO 2: Resposta sobre o que faria com o dinheiro (gatilho de sonho)
+        else if (passo === 2) {
+          meta = texto;
+          
+          sendAttendantMessage(`Adorei sua resposta! 😊 Sabia que muitas alunas começaram exatamente com esse mesmo sonho? Uma delas, a Carla, conseguiu pagar a reforma da cozinha com o que faturou na Páscoa passada.`, 1800, true);
+          
+          setTimeout(() => {
+            sendAttendantMessage(`E o mais legal: <span class="highlight">ela nunca tinha feito um ovo de Páscoa antes</span>. Aprendia tudo do zero e já na primeira semana fez R$ 1.800.`, 2000, true);
+            passo = 3;
+          }, 2200);
+        }
+
+        // PASSO 3: Introdução ao método e gatilho de autoridade
+        else if (passo === 3) {
+          sendAttendantMessage('Eu desenvolvi um método passo a passo justamente para isso: pegar na mão de quem nunca fez nada e ensinar até virar expert. 📲', 1600);
+          
+          setTimeout(() => {
+            sendAttendantMessage('O nome é Operação Páscoa Lucrativa 2026. É um treinamento completo onde ensino tudo a você para ter uma renda extra na Páscoa com preço baixo e suporte direto comigo.', 1800);
+            
+            setTimeout(() => {
+              sendAttendantMessage('Mas tem um detalhe importante: <span class="urgent">as vagas para iniciantes estão quase esgotando</span>. E por você estar aqui agora, posso liberar um desconto especial pra você?', 2000, true);
+              passo = 4;
+            }, 2000);
+          }, 1800);
+        }
+
+        // PASSO 4: Gatilho de escassez e oferta
+        else if (passo === 4) {
+          sendAttendantMessage(`Você me parece uma pessoa determinada, ${nomeUsuario}. E eu acredito tanto no método que <span class="highlight">ofereço 7 dias de garantia</span>: se não gostar, devolvo 100% do seu dinheiro.`, 1800, true);
+          
+          setTimeout(() => {
+            sendAttendantMessage('Quer que eu envie o link com o desconto de 40% que separei pra você? 🐣', 1600);
+            passo = 5;
+          }, 2200);
+        }
+
+        // PASSO 5: Envio do link ou objeções
+        else if (passo === 5) {
+          const resp = texto.toLowerCase();
+          
+          if (resp.includes('sim') || resp.includes('quero') || resp.includes('envia') || resp.includes('manda') || resp.includes('ok')) {
+            sendAttendantMessage('Perfeito! Estou tão feliz por você! 💛 O link exclusivo está aqui embaixo. Clique e garanta sua vaga:', 1600);
+            
+            setTimeout(() => {
+              const linkContainer = document.createElement('div');
+              linkContainer.className = 'link-message';
+              linkContainer.innerHTML = '<a href="#" id="compraLink"><i class="fas fa-gift"></i> GARANTIR 40% OFF + BÔNUS <i class="fas fa-lock-open"></i></a>';
+              chatArea.appendChild(linkContainer);
+              chatArea.scrollTop = chatArea.scrollHeight;
+              
+              document.getElementById('compraLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('🔐 Redirecionando para checkout seguro da Operação Páscoa Lucrativa 2026');
+                window.open('https://checkout.operacaopascoa.com/juliana', '_blank');
+                
+                setTimeout(() => {
+                  addMessage('Parabéns! Você acabou de dar o primeiro passo para sua Páscoa lucrativa! 🐰💕', 'received');
+                }, 1000);
+              });
+              
+              passo = 6;
+            }, 1000);
+          } 
+          else if (resp.includes('preço') || resp.includes('custa') || resp.includes('valor')) {
+            sendAttendantMessage('O valor normal é R$ 297, mas com o desconto para iniciantes fica 12x de R$ 14,82 ou R$ 147 à vista. E com 7 dias de garantia, você não arrisca nada!', 1800);
+            
+            setTimeout(() => {
+              sendAttendantMessage('Quer o link com esse desconto? 💝', 1500);
+            }, 2000);
+          }
+          else if (resp.includes('duvida') || resp.includes('medo') || resp.includes('não sei')) {
+            sendAttendantMessage('Eu entendo! No começo eu também tinha medo. Mas o método é tão simples que até minha tia de 60 anos aprendeu e vendeu 50 ovos. 🥚', 1800);
+            
+            setTimeout(() => {
+              sendAttendantMessage('Que tal dar uma chance? Você pode assistir as primeiras aulas e se não gostar, devolvo o dinheiro. Combinado?', 1600);
+            }, 2200);
+          }
+          else {
+            sendAttendantMessage('Tudo bem! Se mudar de ideia, é só digitar "link" que eu envio novamente. Estou aqui para ajudar no que precisar. 😊', 1600);
+          }
+        }
+
+        // PASSO 6: Pós-link, interação amigável
+        else if (passo === 6) {
+          if (texto.toLowerCase().includes('link') || texto.toLowerCase().includes('comprar')) {
+            const linkContainer = document.createElement('div');
+            linkContainer.className = 'link-message';
+            linkContainer.innerHTML = '<a href="#" id="compraLink2"><i class="fas fa-gift"></i> LINK DE ACESSO COM 40% OFF <i class="fas fa-egg"></i></a>';
+            chatArea.appendChild(linkContainer);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            
+            document.getElementById('compraLink2').addEventListener('click', function(e) {
+              e.preventDefault();
+              alert('🔐 Redirecionando...');
+              window.open('https://checkout.operacaopascoa.com/juliana', '_blank');
+            });
+          } else {
+            sendAttendantMessage('Entendi! Se precisar de mim, é só falar. Ou digite "começar" para reiniciar a conversa. 🐣🌸', 1500);
+          }
+        }
+      }
+
+      function sendUserMessage() {
+        const texto = inputField.value.trim();
+        if (texto === '' || !aguardandoResposta) return;
+        
+        processUserResponse(texto);
+        inputField.value = '';
+      }
+
+      // Event listeners
+      sendButton.addEventListener('click', sendUserMessage);
+      
+      inputField.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendUserMessage();
+        }
+      });
+
+      restartBtn.addEventListener('click', function() {
+        if (confirm('Deseja reiniciar a conversa?')) {
+          restartConversation();
+        }
+      });
+
+      // Iniciar conversa
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          addMessage('🐣 Oi! Eu sou a Juliana, tudo bem? Antes de começarmos, me conta: qual é o seu nome?', 'received');
+          aguardandoResposta = true;
+          passo = 0;
+        }, 500);
+      });
+
+    })();
+  </script>
+</body>
+</html>
